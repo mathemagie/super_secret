@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>sup3rS3cretMes5age</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="/static/icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/static/icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/static/icons/favicon-16x16.png">
+  <link rel="manifest" href="/static/icons/manifest.json">
+  <link rel="mask-icon" href="/static/icons/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="theme-color" content="#ffffff">
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <link rel="stylesheet" href="/static/application.css">
+</head>
+
+<body>
+  <main class="send">
+    <div class="container">
+      <h1>Secret Message</h1>
+      <p class="subtitle">Send a secret one-time read only message</p>
+        <form id="secretform" action="/no-internet" method="POST" enctype="multipart/form-data">
+
+          <div class="input-field">
+         Upload Secret File: <input id='file-input' type="file" name="file" size=25></br>
+            
+            <textarea id="textarea1" name="msg" placeholder="Paste your message here" required="required"></textarea>
+          </div>
+          <div class="ttl">
+            Time to expire: 
+            <select name="ttl" id="ttl">
+              <option value="24h">24h</option>
+              <option value="48h" selected>48h</option>
+              <option value="168h">week</option>
+            </select>
+          </div>
+          <div class="button_wrapper">
+            <button class="encrypt" type="submit" name="action">Submit
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 268.832 268.832"><path fill="#FFF" d="M265.17 125.577l-80-80c-4.88-4.88-12.796-4.88-17.677 0-4.882 4.882-4.882 12.796 0 17.678l58.66 58.66H12.5c-6.903 0-12.5 5.598-12.5 12.5 0 6.903 5.597 12.5 12.5 12.5h213.654l-58.66 58.662c-4.88 4.882-4.88 12.796 0 17.678 2.44 2.44 5.64 3.66 8.84 3.66s6.398-1.22 8.84-3.66l79.997-80c4.883-4.882 4.883-12.796 0-17.678z"/></svg>
+            </button>
+          </div>
+        </form>
+        <div class="divider"></div>
+        <div class="success-encrypted">
+          <div class="output-field">
+            <textarea id="url" class="textarea" readonly=true></textarea>
+          </div>
+          <div class="button">
+            <button class="btn clipboard" data-clipboard-target="#url">
+              Copy to Clipboard
+            </button>
+          </div>
+        </div>
+    </div>
+  </main>
+  <footer>
+  <div class="footer">
+    <a href="https://github.com/algolia/sup3rS3cretMes5age" target="_blank">
+      <img src="/static/icons/github.png">
+    </a>
+  </div>
+</footer>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+<script type="text/javascript">
+new Clipboard(".btn");
+
+$("#secretform").submit(function(e) {
+  e.preventDefault();
+  if (this.val === "") return false;
+  const form = new FormData($("#secretform")[0]);
+
+  $.ajax({
+    type: "POST",
+    url: "/secret",
+    processData: false, // Important!
+    contentType: false,
+    cache: false,
+    data: form,
+    success(data) {
+      $(".success-encrypted").css({
+        opacity: 1,
+        pointerEvents: "auto",
+        visibility: "visible"
+      });
+      $(".encrypt").css({
+        opacity: 0,
+        pointerEvents: "none",
+        visibility: "hidden"
+      });
+      $(".ttl").css({
+        opacity: 0,
+        pointerEvents: "none",
+        visibility: "hidden"
+      });
+      $(".input-field").css({
+        opacity: 0,
+        visibility: "hidden",
+        pointerEvents: "none"
+      });
+      showURL(data.token, data.filetoken, data.filename);
+    }
+  });
+});
+
+function showURL(token, filetoken, filename) {
+  if (filetoken) {
+    $("#url").text(
+      `${window.location.origin}/getmsg?token=${encodeURIComponent(token)}&filetoken=${encodeURIComponent(filetoken)}&filename=${encodeURIComponent(filename)}`
+    );
+    return;
+  }
+  $("#url").text(`${window.location.origin}/getmsg?token=${encodeURIComponent(token)}`);
+}
+</script>
+
+</html>
