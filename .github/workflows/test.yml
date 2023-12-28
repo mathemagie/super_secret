@@ -21,7 +21,7 @@ jobs:
         go-version: 1.16
 
     - name: install dependencies
-      run: cd src;go mod download
+      run: cd src;go get .
 
     - name: Run tests
       run: cd src;go test ./... -v
