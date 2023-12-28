@@ -2,7 +2,7 @@ FROM golang:1.18 AS builder
 
 WORKDIR /go/src/github.com/algolia/sup3rS3cretMes5age
 
-ADD . .
+ADD src .
 
 RUN go mod download
 RUN CGO_ENABLED=0 GOOS=linux go build -o sup3rS3cretMes5age .
@@ -28,6 +28,6 @@ RUN \
 WORKDIR /opt/supersecret
 
 COPY --from=builder /go/src/github.com/algolia/sup3rS3cretMes5age/sup3rS3cretMes5age .
-COPY static /opt/supersecret/static
+COPY src/static /opt/supersecret/static
 
 CMD [ "./sup3rS3cretMes5age" ]
