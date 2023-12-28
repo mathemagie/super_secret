@@ -8,7 +8,7 @@ DOMAIN ?= localhost
 test:
 	cd src;go test ./... -v
 
-build: 
+build:
 	@docker-compose build
 
 clean:
@@ -18,7 +18,7 @@ run-local: clean
         @DOMAIN=$(DOMAIN) \
         docker-compose up --build -d
 
-run: 
+run:
 	@DOMAIN=$(DOMAIN) \
         docker-compose up --build -d
 

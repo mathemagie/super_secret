@@ -9,7 +9,7 @@ resource "azurerm_container_app" "my_first_app" {
     server               = "docker.io"
     username             = "dockerIOUserName"
     password_secret_name = "docker-io-pass"
-    
+
   }
 
   ingress {
@@ -29,10 +29,10 @@ resource "azurerm_container_app" "my_first_app" {
       cpu    = 0.25
       memory = "0.5Gi"
   }
-  
-  secret { 
-    name  = "docker-io-pass" 
-    value = "MyDockerIOPass" 
+
+  secret {
+    name  = "docker-io-pass"
+    value = "MyDockerIOPass"
   }
 
   tags = local.default_tags

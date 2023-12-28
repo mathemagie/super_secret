@@ -134,4 +134,4 @@ They will be reviewed by our team at Algolia.
 
 ## Thanks!
 
-This project is heavaily depandent on [Echo Go Web Framework](https://github.com/labstack/echo)and on Hashicorp Vault. 
+This project is heavaily depandent on [Echo Go Web Framework](https://github.com/labstack/echo)and on Hashicorp Vault.

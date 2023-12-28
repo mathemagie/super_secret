@@ -28,13 +28,13 @@
         <div class="container">
             <h1>Secret Message</h1>
             <p class="subtitle">Get your secret one-time read only message</p>
-                
+
 
                 <div class="slidecontainer">
                     <h2>Drag the slider to display the Secret Message</h2>
                     <input type="range" min="0" max="100" value="0" step="5" class="slider" id="myRange">
                 </div>
-            
+
             <div class="input-field" style="display:none">
 
 
@@ -43,7 +43,7 @@
             </div>
             <div class="button" style="display:none">
                 <button class="btn clipboard"  type="submit" data-clipboard-target="#textarea1" name="action">Copy to clipboard
-              
+
             </button>
                 <button class="btn encrypt"  type="submit" name="newMsg" onclick="window.location.href=window.location.origin;">Send a secret message
             </button>
@@ -86,12 +86,12 @@
         function showMsg(msg, filetoken, filename) {
             $('#pbar').hide()
 
-            $('#textarea1').text(msg) 
+            $('#textarea1').text(msg)
             if (filetoken) {
                 console.log('filetoken=', filetoken)
                 getSecret(filetoken, filename)
             }
-           
+
             // Hide slider
             $('.slidecontainer').toggle();
             // Show secret text box
