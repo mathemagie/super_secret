@@ -6,7 +6,7 @@ DOMAIN ?= localhost
 
 
 test:
-	go test ./... -v
+	cd src;go test ./... -v
 
 build: 
 	@docker-compose build
