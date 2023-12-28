@@ -3,7 +3,7 @@ locals {
 
   default_tags = {
     environment = var.env
-    owner       = "Adrien FACHE"
+    owner       = "Adrien FACHE."
     app         = var.app
   }
 
